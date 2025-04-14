@@ -1,0 +1,169 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "ctypes",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "ctypes",
+        "description": "ctypes",
+        "detail": "ctypes",
+        "documentation": {}
+    },
+    {
+        "label": "tkinter",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "filedialog",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "messagebox",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "VirtualDesktop",
+        "importPath": "pyvda",
+        "description": "pyvda",
+        "isExtraImport": true,
+        "detail": "pyvda",
+        "documentation": {}
+    },
+    {
+        "label": "VirtualDesktop",
+        "importPath": "pyvda",
+        "description": "pyvda",
+        "isExtraImport": true,
+        "detail": "pyvda",
+        "documentation": {}
+    },
+    {
+        "label": "WallpaperApp",
+        "kind": 6,
+        "importPath": "set",
+        "description": "set",
+        "peekOfCode": "class WallpaperApp:\n    def __init__(self, root):\n        self.root = root\n        self.root.title(\"Virtual Desktop Wallpaper Switcher\")\n        self.root.geometry(\"450x300\")\n        self.wallpapers = {1: \"\", 2: \"\"}\n        self.monitoring_thread = None\n        self.monitoring = False\n        self.current_desktop = None\n        # Create the GUI components",
+        "detail": "set",
+        "documentation": {}
+    },
+    {
+        "label": "SPI_SETDESKWALLPAPER",
+        "kind": 5,
+        "importPath": "set",
+        "description": "set",
+        "peekOfCode": "SPI_SETDESKWALLPAPER = 20\nSPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\nclass WallpaperApp:\n    def __init__(self, root):\n        self.root = root\n        self.root.title(\"Virtual Desktop Wallpaper Switcher\")\n        self.root.geometry(\"450x300\")\n        self.wallpapers = {1: \"\", 2: \"\"}\n        self.monitoring_thread = None",
+        "detail": "set",
+        "documentation": {}
+    },
+    {
+        "label": "SPIF_UPDATEINIFILE",
+        "kind": 5,
+        "importPath": "set",
+        "description": "set",
+        "peekOfCode": "SPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\nclass WallpaperApp:\n    def __init__(self, root):\n        self.root = root\n        self.root.title(\"Virtual Desktop Wallpaper Switcher\")\n        self.root.geometry(\"450x300\")\n        self.wallpapers = {1: \"\", 2: \"\"}\n        self.monitoring_thread = None\n        self.monitoring = False",
+        "detail": "set",
+        "documentation": {}
+    },
+    {
+        "label": "SPIF_SENDWININICHANGE",
+        "kind": 5,
+        "importPath": "set",
+        "description": "set",
+        "peekOfCode": "SPIF_SENDWININICHANGE = 0x02\nclass WallpaperApp:\n    def __init__(self, root):\n        self.root = root\n        self.root.title(\"Virtual Desktop Wallpaper Switcher\")\n        self.root.geometry(\"450x300\")\n        self.wallpapers = {1: \"\", 2: \"\"}\n        self.monitoring_thread = None\n        self.monitoring = False\n        self.current_desktop = None",
+        "detail": "set",
+        "documentation": {}
+    },
+    {
+        "label": "set_wallpaper",
+        "kind": 2,
+        "importPath": "set_wallpaper",
+        "description": "set_wallpaper",
+        "peekOfCode": "def set_wallpaper(image_path):\n    \"\"\"\n    Change the desktop wallpaper using the SystemParametersInfoW API.\n    If image_path is empty, a message is printed.\n    \"\"\"\n    if image_path:\n        result = ctypes.windll.user32.SystemParametersInfoW(\n            SPI_SETDESKWALLPAPER, 0, image_path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE)\n        if not result:\n            print(\"Failed to update wallpaper for:\", image_path)",
+        "detail": "set_wallpaper",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "set_wallpaper",
+        "description": "set_wallpaper",
+        "peekOfCode": "def main():\n    current_desktop = None\n    while True:\n        try:\n            # Get the current desktop using pyvda\n            desktop = VirtualDesktop.current()\n            index = desktop.number  # Current desktop number (usually starting at 1)\n            # Change wallpaper only if desktop has changed\n            if index != current_desktop:\n                current_desktop = index",
+        "detail": "set_wallpaper",
+        "documentation": {}
+    },
+    {
+        "label": "wallpapers",
+        "kind": 5,
+        "importPath": "set_wallpaper",
+        "description": "set_wallpaper",
+        "peekOfCode": "wallpapers = {\n    0: r\"\",                # No wallpaper assigned for this index\n    1: r\"F:\\projects\\virtual_desktop_wallpaper_win10\\wallpaper1.jpg\",  # Ensure the file exists or provide a full path\n    2: r\"F:\\projects\\virtual_desktop_wallpaper_win10\\wallpaper2.jpg\"\n}\n# Constants used to change the wallpaper via the Windows API\nSPI_SETDESKWALLPAPER = 20\nSPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\ndef set_wallpaper(image_path):",
+        "detail": "set_wallpaper",
+        "documentation": {}
+    },
+    {
+        "label": "SPI_SETDESKWALLPAPER",
+        "kind": 5,
+        "importPath": "set_wallpaper",
+        "description": "set_wallpaper",
+        "peekOfCode": "SPI_SETDESKWALLPAPER = 20\nSPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\ndef set_wallpaper(image_path):\n    \"\"\"\n    Change the desktop wallpaper using the SystemParametersInfoW API.\n    If image_path is empty, a message is printed.\n    \"\"\"\n    if image_path:\n        result = ctypes.windll.user32.SystemParametersInfoW(",
+        "detail": "set_wallpaper",
+        "documentation": {}
+    },
+    {
+        "label": "SPIF_UPDATEINIFILE",
+        "kind": 5,
+        "importPath": "set_wallpaper",
+        "description": "set_wallpaper",
+        "peekOfCode": "SPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\ndef set_wallpaper(image_path):\n    \"\"\"\n    Change the desktop wallpaper using the SystemParametersInfoW API.\n    If image_path is empty, a message is printed.\n    \"\"\"\n    if image_path:\n        result = ctypes.windll.user32.SystemParametersInfoW(\n            SPI_SETDESKWALLPAPER, 0, image_path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE)",
+        "detail": "set_wallpaper",
+        "documentation": {}
+    },
+    {
+        "label": "SPIF_SENDWININICHANGE",
+        "kind": 5,
+        "importPath": "set_wallpaper",
+        "description": "set_wallpaper",
+        "peekOfCode": "SPIF_SENDWININICHANGE = 0x02\ndef set_wallpaper(image_path):\n    \"\"\"\n    Change the desktop wallpaper using the SystemParametersInfoW API.\n    If image_path is empty, a message is printed.\n    \"\"\"\n    if image_path:\n        result = ctypes.windll.user32.SystemParametersInfoW(\n            SPI_SETDESKWALLPAPER, 0, image_path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE)\n        if not result:",
+        "detail": "set_wallpaper",
+        "documentation": {}
+    }
+]
