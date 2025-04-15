@@ -1,29 +1,11 @@
 [
     {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
         "label": "time",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "time",
         "description": "time",
         "detail": "time",
-        "documentation": {}
-    },
-    {
-        "label": "threading",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "threading",
-        "description": "threading",
-        "detail": "threading",
         "documentation": {}
     },
     {
@@ -36,31 +18,6 @@
         "documentation": {}
     },
     {
-        "label": "tkinter",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "tkinter",
-        "description": "tkinter",
-        "detail": "tkinter",
-        "documentation": {}
-    },
-    {
-        "label": "filedialog",
-        "importPath": "tkinter",
-        "description": "tkinter",
-        "isExtraImport": true,
-        "detail": "tkinter",
-        "documentation": {}
-    },
-    {
-        "label": "messagebox",
-        "importPath": "tkinter",
-        "description": "tkinter",
-        "isExtraImport": true,
-        "detail": "tkinter",
-        "documentation": {}
-    },
-    {
         "label": "VirtualDesktop",
         "importPath": "pyvda",
         "description": "pyvda",
@@ -77,39 +34,12 @@
         "documentation": {}
     },
     {
-        "label": "WallpaperApp",
+        "label": "curses",
         "kind": 6,
-        "importPath": "set",
-        "description": "set",
-        "peekOfCode": "class WallpaperApp:\n    def __init__(self, root):\n        self.root = root\n        self.root.title(\"Virtual Desktop Wallpaper Switcher\")\n        self.root.geometry(\"450x300\")\n        self.wallpapers = {1: \"\", 2: \"\"}\n        self.monitoring_thread = None\n        self.monitoring = False\n        self.current_desktop = None\n        # Create the GUI components",
-        "detail": "set",
-        "documentation": {}
-    },
-    {
-        "label": "SPI_SETDESKWALLPAPER",
-        "kind": 5,
-        "importPath": "set",
-        "description": "set",
-        "peekOfCode": "SPI_SETDESKWALLPAPER = 20\nSPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\nclass WallpaperApp:\n    def __init__(self, root):\n        self.root = root\n        self.root.title(\"Virtual Desktop Wallpaper Switcher\")\n        self.root.geometry(\"450x300\")\n        self.wallpapers = {1: \"\", 2: \"\"}\n        self.monitoring_thread = None",
-        "detail": "set",
-        "documentation": {}
-    },
-    {
-        "label": "SPIF_UPDATEINIFILE",
-        "kind": 5,
-        "importPath": "set",
-        "description": "set",
-        "peekOfCode": "SPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\nclass WallpaperApp:\n    def __init__(self, root):\n        self.root = root\n        self.root.title(\"Virtual Desktop Wallpaper Switcher\")\n        self.root.geometry(\"450x300\")\n        self.wallpapers = {1: \"\", 2: \"\"}\n        self.monitoring_thread = None\n        self.monitoring = False",
-        "detail": "set",
-        "documentation": {}
-    },
-    {
-        "label": "SPIF_SENDWININICHANGE",
-        "kind": 5,
-        "importPath": "set",
-        "description": "set",
-        "peekOfCode": "SPIF_SENDWININICHANGE = 0x02\nclass WallpaperApp:\n    def __init__(self, root):\n        self.root = root\n        self.root.title(\"Virtual Desktop Wallpaper Switcher\")\n        self.root.geometry(\"450x300\")\n        self.wallpapers = {1: \"\", 2: \"\"}\n        self.monitoring_thread = None\n        self.monitoring = False\n        self.current_desktop = None",
-        "detail": "set",
+        "isExtraImport": true,
+        "importPath": "curses",
+        "description": "curses",
+        "detail": "curses",
         "documentation": {}
     },
     {
@@ -164,6 +94,87 @@
         "description": "set_wallpaper",
         "peekOfCode": "SPIF_SENDWININICHANGE = 0x02\ndef set_wallpaper(image_path):\n    \"\"\"\n    Change the desktop wallpaper using the SystemParametersInfoW API.\n    If image_path is empty, a message is printed.\n    \"\"\"\n    if image_path:\n        result = ctypes.windll.user32.SystemParametersInfoW(\n            SPI_SETDESKWALLPAPER, 0, image_path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE)\n        if not result:",
         "detail": "set_wallpaper",
+        "documentation": {}
+    },
+    {
+        "label": "set_wallpaper",
+        "kind": 2,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "def set_wallpaper(image_path):\n    \"\"\"\n    Use the Windows API to change the desktop wallpaper.\n    \"\"\"\n    if image_path:\n        result = ctypes.windll.user32.SystemParametersInfoW(\n            SPI_SETDESKWALLPAPER, 0, image_path,\n            SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE\n        )\n        if not result:",
+        "detail": "vdw",
+        "documentation": {}
+    },
+    {
+        "label": "curses_input",
+        "kind": 2,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "def curses_input(stdscr, prompt, y, x):\n    \"\"\"\n    Prompt the user for input in curses.\n    \"\"\"\n    curses.echo()\n    stdscr.addstr(y, x, prompt)\n    stdscr.refresh()\n    # Read up to 60 characters\n    input_str = stdscr.getstr(y, x + len(prompt), 60).decode(\"utf-8\", errors=\"replace\")\n    curses.noecho()",
+        "detail": "vdw",
+        "documentation": {}
+    },
+    {
+        "label": "main_curses",
+        "kind": 2,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "def main_curses(stdscr):\n    global enabled, wallpapers\n    curses.curs_set(0)      # Hide the cursor.\n    stdscr.nodelay(True)    # Non-blocking input.\n    stdscr.timeout(500)     # Refresh every 500 ms.\n    current_desktop = None\n    search_counter = 0  # Just for the \"Searching\" mimic.\n    while True:\n        stdscr.clear()\n        # Print the ASCII banner at the top",
+        "detail": "vdw",
+        "documentation": {}
+    },
+    {
+        "label": "wallpapers",
+        "kind": 5,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "wallpapers = {\n    0: r\"\",  # No wallpaper for desktop 0 (example)\n    1: r\"F:\\projects\\virtual_desktop_wallpaper_win10\\wallpaper1.jpg\",\n    2: r\"F:\\projects\\virtual_desktop_wallpaper_win10\\wallpaper2.jpg\"\n}\n# Windows API constants for changing wallpaper.\nSPI_SETDESKWALLPAPER = 20\nSPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\n# Global flag to enable/disable wallpaper switching.",
+        "detail": "vdw",
+        "documentation": {}
+    },
+    {
+        "label": "SPI_SETDESKWALLPAPER",
+        "kind": 5,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "SPI_SETDESKWALLPAPER = 20\nSPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\n# Global flag to enable/disable wallpaper switching.\nenabled = True\nASCII_BANNER = r\"\"\"\n,---.  ,---. ______     .--.      .--.   .-'''-.  ________ .--.      .--..-./`) ,---.   .--. .---.  .-```````-.  \n|   /  |   ||    _ `''. |  |_     |  |  / _     \\|        ||  |_     |  |\\ .-.')|    \\  |  | \\   / / ,```````. \\ \n|  |   |  .'| _ | ) _  \\| _( )_   |  | (`' )/`--'|   .----'| _( )_   |  |/ `-' \\|  ,  \\ |  | |   | |/ .-./ )  \\| \n|  | _ |  | |( ''_'  ) ||(_ o _)  |  |(_ o _).   |  _|____ |(_ o _)  |  | `-'`\"`|  |\\_ \\|  |  \\ /  || \\ '_ .')|| ",
+        "detail": "vdw",
+        "documentation": {}
+    },
+    {
+        "label": "SPIF_UPDATEINIFILE",
+        "kind": 5,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "SPIF_UPDATEINIFILE = 0x01\nSPIF_SENDWININICHANGE = 0x02\n# Global flag to enable/disable wallpaper switching.\nenabled = True\nASCII_BANNER = r\"\"\"\n,---.  ,---. ______     .--.      .--.   .-'''-.  ________ .--.      .--..-./`) ,---.   .--. .---.  .-```````-.  \n|   /  |   ||    _ `''. |  |_     |  |  / _     \\|        ||  |_     |  |\\ .-.')|    \\  |  | \\   / / ,```````. \\ \n|  |   |  .'| _ | ) _  \\| _( )_   |  | (`' )/`--'|   .----'| _( )_   |  |/ `-' \\|  ,  \\ |  | |   | |/ .-./ )  \\| \n|  | _ |  | |( ''_'  ) ||(_ o _)  |  |(_ o _).   |  _|____ |(_ o _)  |  | `-'`\"`|  |\\_ \\|  |  \\ /  || \\ '_ .')|| \n|  _( )_  | | . (_) `. || (_,_) \\ |  | (_,_). '. |_( )_   || (_,_) \\ |  | .---. |  _( )_\\  |   v   ||(_ (_) _)|| ",
+        "detail": "vdw",
+        "documentation": {}
+    },
+    {
+        "label": "SPIF_SENDWININICHANGE",
+        "kind": 5,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "SPIF_SENDWININICHANGE = 0x02\n# Global flag to enable/disable wallpaper switching.\nenabled = True\nASCII_BANNER = r\"\"\"\n,---.  ,---. ______     .--.      .--.   .-'''-.  ________ .--.      .--..-./`) ,---.   .--. .---.  .-```````-.  \n|   /  |   ||    _ `''. |  |_     |  |  / _     \\|        ||  |_     |  |\\ .-.')|    \\  |  | \\   / / ,```````. \\ \n|  |   |  .'| _ | ) _  \\| _( )_   |  | (`' )/`--'|   .----'| _( )_   |  |/ `-' \\|  ,  \\ |  | |   | |/ .-./ )  \\| \n|  | _ |  | |( ''_'  ) ||(_ o _)  |  |(_ o _).   |  _|____ |(_ o _)  |  | `-'`\"`|  |\\_ \\|  |  \\ /  || \\ '_ .')|| \n|  _( )_  | | . (_) `. || (_,_) \\ |  | (_,_). '. |_( )_   || (_,_) \\ |  | .---. |  _( )_\\  |   v   ||(_ (_) _)|| \n\\ (_ o._) / |(_    ._) '|  |/    \\|  |.---.  \\  :(_ o._)__||  |/    \\|  | |   | | (_ o _)  |  _ _  ||  / .  \\ || ",
+        "detail": "vdw",
+        "documentation": {}
+    },
+    {
+        "label": "enabled",
+        "kind": 5,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "enabled = True\nASCII_BANNER = r\"\"\"\n,---.  ,---. ______     .--.      .--.   .-'''-.  ________ .--.      .--..-./`) ,---.   .--. .---.  .-```````-.  \n|   /  |   ||    _ `''. |  |_     |  |  / _     \\|        ||  |_     |  |\\ .-.')|    \\  |  | \\   / / ,```````. \\ \n|  |   |  .'| _ | ) _  \\| _( )_   |  | (`' )/`--'|   .----'| _( )_   |  |/ `-' \\|  ,  \\ |  | |   | |/ .-./ )  \\| \n|  | _ |  | |( ''_'  ) ||(_ o _)  |  |(_ o _).   |  _|____ |(_ o _)  |  | `-'`\"`|  |\\_ \\|  |  \\ /  || \\ '_ .')|| \n|  _( )_  | | . (_) `. || (_,_) \\ |  | (_,_). '. |_( )_   || (_,_) \\ |  | .---. |  _( )_\\  |   v   ||(_ (_) _)|| \n\\ (_ o._) / |(_    ._) '|  |/    \\|  |.---.  \\  :(_ o._)__||  |/    \\|  | |   | | (_ o _)  |  _ _  ||  / .  \\ || \n \\ (_,_) /  |  (_.\\.' / |  '  /\\  `  |\\    `-'  ||(_,_)    |  '  /\\  `  | |   | |  (_,_)\\  | (_I_) ||  `-'`\"` || \n  \\     /   |       .'  |    /  \\    | \\       / |   |     |    /  \\    | |   | |  |    |  |(_(=)_)\\'._______.'/ ",
+        "detail": "vdw",
+        "documentation": {}
+    },
+    {
+        "label": "ASCII_BANNER",
+        "kind": 5,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "ASCII_BANNER = r\"\"\"\n,---.  ,---. ______     .--.      .--.   .-'''-.  ________ .--.      .--..-./`) ,---.   .--. .---.  .-```````-.  \n|   /  |   ||    _ `''. |  |_     |  |  / _     \\|        ||  |_     |  |\\ .-.')|    \\  |  | \\   / / ,```````. \\ \n|  |   |  .'| _ | ) _  \\| _( )_   |  | (`' )/`--'|   .----'| _( )_   |  |/ `-' \\|  ,  \\ |  | |   | |/ .-./ )  \\| \n|  | _ |  | |( ''_'  ) ||(_ o _)  |  |(_ o _).   |  _|____ |(_ o _)  |  | `-'`\"`|  |\\_ \\|  |  \\ /  || \\ '_ .')|| \n|  _( )_  | | . (_) `. || (_,_) \\ |  | (_,_). '. |_( )_   || (_,_) \\ |  | .---. |  _( )_\\  |   v   ||(_ (_) _)|| \n\\ (_ o._) / |(_    ._) '|  |/    \\|  |.---.  \\  :(_ o._)__||  |/    \\|  | |   | | (_ o _)  |  _ _  ||  / .  \\ || \n \\ (_,_) /  |  (_.\\.' / |  '  /\\  `  |\\    `-'  ||(_,_)    |  '  /\\  `  | |   | |  (_,_)\\  | (_I_) ||  `-'`\"` || \n  \\     /   |       .'  |    /  \\    | \\       / |   |     |    /  \\    | |   | |  |    |  |(_(=)_)\\'._______.'/ \n   `---`    '-----'`    `---'    `---`  `-...-'  '---'     `---'    `---` '---' '--'    '--' (_I_)  '._______.'  ",
+        "detail": "vdw",
         "documentation": {}
     }
 ]
