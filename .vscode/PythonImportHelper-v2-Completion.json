@@ -26,20 +26,38 @@
         "documentation": {}
     },
     {
-        "label": "VirtualDesktop",
-        "importPath": "pyvda",
-        "description": "pyvda",
-        "isExtraImport": true,
-        "detail": "pyvda",
-        "documentation": {}
-    },
-    {
         "label": "curses",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "curses",
         "description": "curses",
         "detail": "curses",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
         "documentation": {}
     },
     {
@@ -101,7 +119,7 @@
         "kind": 2,
         "importPath": "vdw",
         "description": "vdw",
-        "peekOfCode": "def set_wallpaper(image_path):\n    \"\"\"\n    Use the Windows API to change the desktop wallpaper.\n    \"\"\"\n    if image_path:\n        result = ctypes.windll.user32.SystemParametersInfoW(\n            SPI_SETDESKWALLPAPER, 0, image_path,\n            SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE\n        )\n        if not result:",
+        "peekOfCode": "def set_wallpaper(image_path):\n    \"\"\"\n    Use the Windows API to change the desktop wallpaper.\n    Validates the image path before attempting to set it.\n    \"\"\"\n    if not image_path:\n        return \"[!] No wallpaper defined for this desktop.\"\n    # Validate file exists\n    if not os.path.exists(image_path):\n        return f\"[!] File not found: {image_path}\"",
         "detail": "vdw",
         "documentation": {}
     },
@@ -110,7 +128,16 @@
         "kind": 2,
         "importPath": "vdw",
         "description": "vdw",
-        "peekOfCode": "def curses_input(stdscr, prompt, y, x):\n    \"\"\"\n    Prompt the user for input in curses.\n    \"\"\"\n    curses.echo()\n    stdscr.addstr(y, x, prompt)\n    stdscr.refresh()\n    # Read up to 60 characters\n    input_str = stdscr.getstr(y, x + len(prompt), 60).decode(\"utf-8\", errors=\"replace\")\n    curses.noecho()",
+        "peekOfCode": "def curses_input(stdscr, prompt, y, x):\n    \"\"\"\n    Prompt the user for input in curses with error handling.\n    \"\"\"\n    try:\n        max_y, max_x = stdscr.getmaxyx()\n        # Ensure we're within bounds\n        if y >= max_y - 1 or x >= max_x - 1:\n            return \"\"\n        curses.echo()",
+        "detail": "vdw",
+        "documentation": {}
+    },
+    {
+        "label": "safe_addstr",
+        "kind": 2,
+        "importPath": "vdw",
+        "description": "vdw",
+        "peekOfCode": "def safe_addstr(stdscr, y, x, text, max_y=None, max_x=None):\n    \"\"\"\n    Safely add string to screen with bounds checking.\n    \"\"\"\n    try:\n        if max_y is None or max_x is None:\n            max_y, max_x = stdscr.getmaxyx()\n        if y < max_y - 1 and x < max_x - 1:\n            # Truncate text to fit within bounds\n            available_space = max_x - x - 1",
         "detail": "vdw",
         "documentation": {}
     },
@@ -119,7 +146,7 @@
         "kind": 2,
         "importPath": "vdw",
         "description": "vdw",
-        "peekOfCode": "def main_curses(stdscr):\n    global enabled, wallpapers\n    curses.curs_set(0)      # Hide the cursor.\n    stdscr.nodelay(True)    # Non-blocking input.\n    stdscr.timeout(500)     # Refresh every 500 ms.\n    current_desktop = None\n    search_counter = 0  # Just for the \"Searching\" mimic.\n    while True:\n        stdscr.clear()\n        # Print the ASCII banner at the top",
+        "peekOfCode": "def main_curses(stdscr):\n    global enabled, wallpapers\n    curses.curs_set(0)      # Hide the cursor.\n    stdscr.nodelay(True)    # Non-blocking input.\n    stdscr.timeout(500)     # Refresh every 500 ms.\n    current_desktop = None\n    last_message = \"\"\n    message_time = 0\n    while True:\n        try:",
         "detail": "vdw",
         "documentation": {}
     },
